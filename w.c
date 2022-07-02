@@ -23,7 +23,7 @@ void winsRealloc(struct WINS* pWins, int newCap)
     struct WIN* wins = malloc(sizeof(struct WIN) * newCap);
 
 
-    for (int i = 0; i < newCap; i++)
+    for (int i = 0; i < pWins->size; i++)
         wins[i] = pWins->wins[i];
 
     free(pWins->wins);
