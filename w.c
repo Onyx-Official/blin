@@ -16,20 +16,10 @@ struct WINS wins_init()
 
 void winsRealloc(struct WINS* pWins, int newCap)
 {
-    if (newCap <= 0)	return;
-    if (newCap < pWins->size)
-        pWins->size = newCap;
-
-    struct WIN* wins = malloc(sizeof(struct WIN) * newCap);
-
-
-    for (int i = 0; i < pWins->size; i++)
-        wins[i] = pWins->wins[i];
-
-    free(pWins->wins);
-    pWins->wins = wins;
-
-    pWins->cap = newCap;
+    if (newCap <= 0)    return;
+    if (newCap < pWins->size) { pWins->size = newCap; } // Keep size <= cap
+    pWins->wins = realloc(pWins->wins, newCap * sizeof(*pWins->wins));
+    pWins->cap  = newCap;
 }
 
 void wins_append(struct WINS* pWins, const struct WIN win)
